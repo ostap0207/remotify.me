@@ -1,0 +1,9 @@
+---remotify.client---
+jfx:run
+
+---remotify.client - build---
+jfx:native
+
+
+
+

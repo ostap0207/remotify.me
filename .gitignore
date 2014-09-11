@@ -1,0 +1,12 @@
+.idea
+*.iml
+*.class
+
+*.jar
+
+target
+/remotify.android/Remotify/build
+
+/remotify.client/qr.png
+/remotify.client/res/conf
+/remotify.client/res

@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/action_keyboard"
+        android:title="@string/keyboard"
+        android:icon="@drawable/ic_action_hardware_keyboard"
+        android:showAsAction="always" />
+
+    <item android:id="@+id/action_logout"
+        android:title="@string/logout"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+</menu>

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="remotify" default="all">
+  
+  
+  <property file="remotify.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.zip"/>
+    <include name="*.apk"/>
+    <include name="*.war"/>
+    <include name="*.egg"/>
+    <include name="*.ear"/>
+    <include name="*.ane"/>
+    <include name="*.swc"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.android_4.2.2_platform" value="${jdk.home.android_4.2.2_platform}/../../../../../../../Program Files/Java/jdk1.7.0_25/bin"/>
+  <path id="jdk.classpath.android_4.2.2_platform">
+    <fileset dir="${jdk.home.android_4.2.2_platform}">
+      <include name="platforms/android-17/android.jar"/>
+      <include name="platforms/android-17/data/res"/>
+      <include name="tools/support/annotations.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.android_4.2.2_platform}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.android_4.2.2_platform}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.android_4.2.2_platform"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.android-support-v4.classpath">
+    <pathelement location="${basedir}/Remotify/libs/android-support-v4.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm4-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module Remotify -->
+  
+  <dirname property="module.remotify.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.remotify" value="${jdk.home.android_4.2.2_platform}"/>
+  <property name="module.jdk.bin.remotify" value="${jdk.bin.android_4.2.2_platform}"/>
+  <property name="module.jdk.classpath.remotify" value="jdk.classpath.android_4.2.2_platform"/>
+  
+  <property name="compiler.args.remotify" value="${compiler.args}"/>
+  
+  <property name="remotify.output.dir" value="${module.remotify.basedir}/build/classes/production/Remotify"/>
+  <property name="remotify.testoutput.dir" value="${module.remotify.basedir}/build/classes/test/Remotify"/>
+  
+  <path id="remotify.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="remotify.module.production.classpath">
+    <path refid="${module.jdk.classpath.remotify}"/>
+    <path refid="library.android-support-v4.classpath"/>
+  </path>
+  
+  <path id="remotify.runtime.production.module.classpath">
+    <pathelement location="${remotify.output.dir}"/>
+    <path refid="library.android-support-v4.classpath"/>
+  </path>
+  
+  <path id="remotify.module.classpath">
+    <path refid="${module.jdk.classpath.remotify}"/>
+    <pathelement location="${remotify.output.dir}"/>
+    <path refid="library.android-support-v4.classpath"/>
+  </path>
+  
+  <path id="remotify.runtime.module.classpath">
+    <pathelement location="${remotify.testoutput.dir}"/>
+    <pathelement location="${remotify.output.dir}"/>
+    <path refid="library.android-support-v4.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.remotify">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.remotify">
+    <patternset refid="excluded.from.module.remotify"/>
+  </patternset>
+  
+  <path id="remotify.module.sourcepath">
+    <dirset dir="${module.remotify.basedir}/Remotify">
+      <include name="build/source/r/debug"/>
+      <include name="build/source/buildConfig/debug"/>
+      <include name="src/main/java"/>
+      <include name="src/main/res"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.remotify" depends="compile.module.remotify.production,compile.module.remotify.tests" description="Compile module Remotify"/>
+  
+  <target name="compile.module.remotify.production" depends="register.custom.compilers" description="Compile module Remotify; production classes">
+    <mkdir dir="${remotify.output.dir}"/>
+    <javac2 destdir="${remotify.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.remotify}/javac">
+      <compilerarg line="${compiler.args.remotify}"/>
+      <bootclasspath refid="remotify.module.bootclasspath"/>
+      <classpath refid="remotify.module.production.classpath"/>
+      <src refid="remotify.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.remotify"/>
+    </javac2>
+    
+    <copy todir="${remotify.output.dir}">
+      <fileset dir="${module.remotify.basedir}/Remotify/build/source/r/debug">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.remotify.basedir}/Remotify/build/source/buildConfig/debug">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.remotify.basedir}/Remotify/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.remotify.basedir}/Remotify/src/main/res">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.remotify.tests" depends="register.custom.compilers,compile.module.remotify.production" description="compile module Remotify; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.remotify" description="cleanup module">
+    <delete dir="${remotify.output.dir}"/>
+    <delete dir="${remotify.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module RemotifyProject -->
+  
+  <dirname property="module.remotifyproject.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.remotifyproject" value="${jdk.home.android_4.2.2_platform}"/>
+  <property name="module.jdk.bin.remotifyproject" value="${jdk.bin.android_4.2.2_platform}"/>
+  <property name="module.jdk.classpath.remotifyproject" value="jdk.classpath.android_4.2.2_platform"/>
+  
+  <property name="compiler.args.remotifyproject" value="${compiler.args}"/>
+  
+  <property name="remotifyproject.output.dir" value="${module.remotifyproject.basedir}/build/classes/production/RemotifyProject"/>
+  <property name="remotifyproject.testoutput.dir" value="${module.remotifyproject.basedir}/build/classes/test/RemotifyProject"/>
+  
+  <path id="remotifyproject.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="remotifyproject.module.production.classpath">
+    <path refid="${module.jdk.classpath.remotifyproject}"/>
+  </path>
+  
+  <path id="remotifyproject.runtime.production.module.classpath">
+    <pathelement location="${remotifyproject.output.dir}"/>
+  </path>
+  
+  <path id="remotifyproject.module.classpath">
+    <path refid="${module.jdk.classpath.remotifyproject}"/>
+    <pathelement location="${remotifyproject.output.dir}"/>
+  </path>
+  
+  <path id="remotifyproject.runtime.module.classpath">
+    <pathelement location="${remotifyproject.testoutput.dir}"/>
+    <pathelement location="${remotifyproject.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.remotifyproject">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.remotifyproject">
+    <patternset refid="excluded.from.module.remotifyproject"/>
+  </patternset>
+  
+  
+  <target name="compile.module.remotifyproject" depends="compile.module.remotifyproject.production,compile.module.remotifyproject.tests" description="Compile module RemotifyProject"/>
+  
+  <target name="compile.module.remotifyproject.production" depends="register.custom.compilers" description="Compile module RemotifyProject; production classes"/>
+  
+  <target name="compile.module.remotifyproject.tests" depends="register.custom.compilers,compile.module.remotifyproject.production" description="compile module RemotifyProject; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.remotifyproject" description="cleanup module">
+    <delete dir="${remotifyproject.output.dir}"/>
+    <delete dir="${remotifyproject.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.remotify, clean.module.remotifyproject" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.remotify, compile.module.remotifyproject" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>

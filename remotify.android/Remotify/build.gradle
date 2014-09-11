@@ -1,0 +1,50 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.+'
+    }
+
+}
+apply plugin: 'android'
+
+repositories {
+    mavenCentral()
+}
+
+
+android {
+    signingConfigs {
+    }
+    compileSdkVersion 19
+    buildToolsVersion '20'
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 19
+    }
+    lintOptions {
+        abortOnError false
+    }
+    productFlavors {
+        paid {
+            packageName "com.progost.remotify"
+            buildConfigField "boolean", "PAID", "true"
+            buildConfigField "String", "PAID_PROFILES", '""'
+        }
+
+        free {
+            packageName "com.progost.remotify.free"
+            buildConfigField "boolean", "PAID", "false"
+            buildConfigField "String", "PAID_PROFILES", '"Entertainment,Explorer,Camera,Screenshots"'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:19.1.0'
+    compile 'de.hdodenhof:circleimageview:1.1.0'
+    // You must install or update the Support Repository through the SDK manager to use this dependency.
+    // The Support Repository (separate from the corresponding library) can be found in the Extras category.
+    // compile 'com.android.support:appcompat-v7:18.0.0'
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="C:\D\Projects\remotify.me\remotify.android\Remotify\build\intermediates\pre-dexed\debug\support-v4-19.1.0-093469f8ef8c492ac9d9186501d577acc2005a1b.jar"
+        jar="C:\Users\Ostap\AppData\Local\Android\android-studio\sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+    <item
+        dex="C:\D\Projects\remotify.me\remotify.android\Remotify\build\intermediates\pre-dexed\free\release\classes-4a5ef717e3448c8f6e0dccb4b97a9d3fc35ab0b5.jar"
+        jar="C:\D\Projects\remotify.me\remotify.android\Remotify\build\intermediates\exploded-aar\de.hdodenhof\circleimageview\1.1.0\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="774294e0c79b3b2a590eb8f4ac2810477ec06388"/>
+    <item
+        dex="C:\D\Projects\remotify.me\remotify.android\Remotify\build\intermediates\pre-dexed\debug\classes-d57116eae56d34d4b1460eb4a7764bf95c3f48e6.jar"
+        jar="C:\D\Projects\remotify.me\remotify.android\build\intermediates\exploded-aar\de.hdodenhof\circleimageview\1.1.0\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="774294e0c79b3b2a590eb8f4ac2810477ec06388"/>
+
+</pre-dex-items>
